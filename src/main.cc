@@ -218,6 +218,16 @@ int main(int argc, char* argv[]) {
 void initialize_laser_field(Propagator& prop, Parameters::Parameters& p) {
   // check if this is a new simulation or a restart from a set of files
   std::string laser_type = p.get<std::string>("laser/type");
+  std::string laser_use_optic = p.get<std::string>("laser/use_optic");
+
+  if (use_optic == 1):
+    if (optic_type = "lens_focal"){
+          double focal = p.get<double>("laser/lens_focal");
+    }
+    else {
+    throw std::runtime_error("Unsupported laser/type: " + laser_type);
+  }
+
   if (laser_type == "gaussian") {
     double wavelength = p.get<double>("laser/wavelength");
     double waist = p.get<double>("laser/waist");
