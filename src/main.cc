@@ -229,8 +229,11 @@ void initialize_laser_field(Propagator& prop, Parameters::Parameters& p) {
     double phase = phase_deg / 180.0 * Constants::pi;
     double delay = p.get<double>("laser/delay");
     double gvd = p.get<double>("calculated/gvd");
+    double r0 = p.get<double>("laser/r0");
+    int m_super = p.get<int>("laser/m_super");
+
     Field::Gaussian laser_field(wavelength, waist, focus, length, phase, delay, energy,
-                                chirp, gvd);
+                                chirp, gvd, r0, m_super);
     prop.initialize_field(laser_field);
   }
   else if (laser_type == "file") {

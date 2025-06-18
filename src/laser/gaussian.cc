@@ -1,16 +1,16 @@
 #include "gaussian.h"
 #include "../util/constants.h"
-#include <iostream>
+#include <iostream> 
 
 namespace Field {
 
   Gaussian::Gaussian(double wavelength, double waist, double focus, double length,
 		     double phase, double delay, double energy,
-                     double chirp, double gvd)
+                     double chirp, double gvd, double r0, int m_super)
     :wavelength(wavelength), waist(waist), focus(focus),
      tau(length*1.699/2), phase(phase),
      delay(delay), energy(energy),
-     chirp(chirp), gvd(gvd) {
+     chirp(chirp), gvd(gvd), r0(r0), m_super(m_super){
     k0 = 2*Constants::pi / wavelength;
     omega0 = k0 * Constants::c;
     zr = k0 * std::pow(waist, 2) / 2;
@@ -57,7 +57,7 @@ namespace Field {
     double psi = gouy(z);
     std::complex<double> i(0, 1);
     std::complex<double> arg(0, 0);
-    arg += -std::pow(r/w, 2);
+    arg += -std::pow((r-r0)/w, 2*m_super);
     arg += 0.5*i*k0*std::pow(r, 2)*C;
     arg += -i*psi;
     
